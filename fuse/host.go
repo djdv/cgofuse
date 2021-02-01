@@ -680,6 +680,11 @@ func (host *FileSystemHost) Mount(mountpoint string, opts []string) bool {
 	 *
 	 * On Windows (WinFsp) this is handled by the FUSE layer and we do not have to do anything.
 	 */
+
+	/* TODO: our package handles this
+	we need to add something like `AutoUnmount(bool)` to disable this,
+	or something more complicated like `OnSignal(someLambda)` and call that here
+	otherwise users need to ctrl+c twice to shutdown ipfs, and the manager will call Unmount a second time
 	if "windows" != runtime.GOOS {
 		done := make(chan bool)
 		defer func() {
@@ -695,6 +700,7 @@ func (host *FileSystemHost) Mount(mountpoint string, opts []string) bool {
 			close(done)
 		}()
 	}
+	*/
 
 	/*
 	 * Tell FUSE to do its job!
